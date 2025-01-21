@@ -1,0 +1,39 @@
+﻿@page "/counter"
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<div style="height: 2000px">
+
+</div>
+
+<p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" role="status">Current count: @currentCount</p>
+
+<button data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" class="btn-primary" @onclick="IncrementCount">Click me</button>
+<br />
+
+<div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+    Componente 1: Aparece com efeito de subida!
+</div>
+
+<div style="height: 2000px">
+</div>
+<br />
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("AOS.init");
+        }
+    }
+}
